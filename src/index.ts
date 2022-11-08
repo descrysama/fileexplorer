@@ -1,6 +1,6 @@
 import { app, BrowserWindow, ipcMain, ipcRenderer } from 'electron';
 import fs from 'fs';
-const rootDir = require('path').resolve('/users/tsuki/documents');
+const rootDir = require('path').resolve('/users/');
 import process from 'process'
 const { session } = require('electron')
 
