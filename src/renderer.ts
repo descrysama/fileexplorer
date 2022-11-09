@@ -31,6 +31,40 @@ import './index.css';
 import { createCards } from './saloperiedeDom'
 let pathInput = (<HTMLInputElement>document.getElementById('pathInput'))
 let backwardButton = document.getElementById('backward')
+let cards = document.getElementsByClassName('card')  
+let createFolder = document.getElementById('createFolder')
+let modalDialog = document.getElementById('modalDialog')
+
+
+const backwardFunction = () => {
+    let splittedPath = pathInput.value.split("\\");
+    let newPath = '';
+    for (let i = 0; i < splittedPath.length - 1; i++) {
+        if(i > 0) {
+            newPath = newPath+'\\'+splittedPath[i]
+        }
+    }
+    loadingFunction(newPath)
+}
+
+const cardEventFunction = (event : any) => {
+    if((<any>event).path[0].id == 'directory') {
+        pathInput.value = pathInput.value+"\\"+(<any>event).path[1].innerText
+        loadingFunction(pathInput.value)
+    } else {
+        (<any>window).loadFile.openFile(pathInput.value+"\\"+(<any>event).path[1].innerText)
+    }
+}
+
+const createFolderFunction = () => {
+    modalDialog.style.display = "flex"
+    Array.from(cards).forEach(function(element) {
+        element.removeEventListener('click', (event) => cardEventFunction(event))
+    })
+    createFolder.removeEventListener('click', createFolderFunction)
+    backwardButton.removeEventListener('click', backwardFunction)
+
+}
 
 const loadingFunction = (newPath : string | boolean) => {
     (<any>window).loadFile.findFolders(newPath == false ? null : newPath).then((data :any) => {
@@ -39,32 +73,34 @@ const loadingFunction = (newPath : string | boolean) => {
         if(document.getElementById('card-content')) {
             document.getElementById('card-content').remove()
         }
-        root.appendChild(createCards(data))
-        let cards = document.getElementsByClassName('card')    
+        if(data.status) {
+            root.appendChild(createCards(data))
+        }  
         Array.from(cards).forEach(function(element) {
-            element.addEventListener('click', (event) => {
-                if((<any>event).path[0].id == 'directory') {
-                    pathInput.value = pathInput.value+"\\"+(<any>event).path[1].innerText
-                    loadingFunction(pathInput.value)
-                } else {
-                    (<any>window).loadFile.openFile(pathInput.value+"\\"+(<any>event).path[1].innerText)
-                }
-            })
+            element.addEventListener('click', (event) => cardEventFunction(event))
         })
     })
 }
 
-backwardButton.addEventListener('click', () => {
-    let splittedPath = pathInput.value.split("\\");
-    console.log(pathInput.value)
-    let newPath = '';
-    for (let i = 0; i < splittedPath.length - 1; i++) {
-        if(i > 0) {
-            newPath = newPath+'\\'+splittedPath[i]
-        }
-    }
-    console.log(newPath)
-    loadingFunction(newPath)
+backwardButton.addEventListener('click', backwardFunction)
+
+createFolder.addEventListener('click', createFolderFunction)
+
+window.addEventListener('click', (event) => {
+   if((<any>event).path[0].id != 'createFolder' && (<any>event).path[0].id != 'createFolderSubmit' && (<any>event).path[0].id != 'createFolderInput') {
+    modalDialog.style.display = "none"
+   }
+   backwardButton.addEventListener('click', backwardFunction)
+    createFolder.addEventListener('click', createFolderFunction)
+    Array.from(cards).forEach(function(element) {
+        element.addEventListener('click', (event) => cardEventFunction(event))
+    })
+})
+
+document.getElementById('createFolderSubmit').addEventListener('click', () => {
+    (<any>window).loadFile.createFolder(pathInput.value+"\\"+(<HTMLInputElement>document.getElementById('createFolderInput')).value)
+    modalDialog.style.display = "none"
+    loadingFunction(pathInput.value)
 })
 
 loadingFunction(false)

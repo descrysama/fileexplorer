@@ -1,7 +1,7 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import fs from 'fs';
 const open = require('open');
-const rootDir = require('path').resolve('/users/tsuki/documents');
+const rootDir = require('path').resolve('/users/tsuki/desktop');
 import process from 'process'
 import { fileInstance } from './usableFunction';
 const { session } = require('electron')
@@ -21,7 +21,7 @@ if (require('electron-squirrel-startup')) {
 const createWindow = (): void => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    height: 900,
+    height: 600,
     width: 1200,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
@@ -72,18 +72,21 @@ app.on('activate', () => {
 
 ipcMain.handle("load-files", (err, newRootDir) => {
   const readFile = async() => {
-    let data = fs.readdirSync(newRootDir ? newRootDir : rootDir)
-    let array = [];
-    for (const file of data) {
-      array.push(fileInstance(newRootDir ? newRootDir : rootDir, file))
-    }
-    let returnValue = {array, rootDir: newRootDir ? newRootDir : rootDir}
-    return returnValue;
+      let data = fs.readdirSync(newRootDir ? newRootDir : rootDir)
+      let array = [];
+      for (const file of data) {
+        array.push(fileInstance(newRootDir ? newRootDir : rootDir, file))
+      }
+      let returnValue = {array, rootDir: newRootDir ? newRootDir : rootDir, status: array.length > 0 ? true : false}
+      return returnValue;
   }
   return readFile()
 })
 
 ipcMain.handle("open-file", (err, path) => {
   open(path)
-  console.log(path)
+})
+
+ipcMain.handle("create-folder", (err, path) => {
+  fs.mkdirSync(path)
 })
