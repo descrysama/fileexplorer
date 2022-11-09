@@ -1,7 +1,9 @@
-import { app, BrowserWindow, ipcMain, ipcRenderer } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import fs from 'fs';
-const rootDir = require('path').resolve('/users/');
+const open = require('open');
+const rootDir = require('path').resolve('/users/tsuki/documents');
 import process from 'process'
+import { fileInstance } from './usableFunction';
 const { session } = require('electron')
 
 
@@ -70,9 +72,18 @@ app.on('activate', () => {
 
 ipcMain.handle("load-files", (err, newRootDir) => {
   const readFile = async() => {
-    let data = await fs.promises.readdir(newRootDir ? newRootDir : rootDir)
-    let returnValue = {data, rootDir: newRootDir ? newRootDir : rootDir}
+    let data = fs.readdirSync(newRootDir ? newRootDir : rootDir)
+    let array = [];
+    for (const file of data) {
+      array.push(fileInstance(newRootDir ? newRootDir : rootDir, file))
+    }
+    let returnValue = {array, rootDir: newRootDir ? newRootDir : rootDir}
     return returnValue;
   }
   return readFile()
+})
+
+ipcMain.handle("open-file", (err, path) => {
+  open(path)
+  console.log(path)
 })

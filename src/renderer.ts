@@ -43,21 +43,27 @@ const loadingFunction = (newPath : string | boolean) => {
         let cards = document.getElementsByClassName('card')    
         Array.from(cards).forEach(function(element) {
             element.addEventListener('click', (event) => {
-                pathInput.value = pathInput.value+"\\"+(<any>event).path[1].innerText
-                loadingFunction(pathInput.value)
+                if((<any>event).path[0].id == 'directory') {
+                    pathInput.value = pathInput.value+"\\"+(<any>event).path[1].innerText
+                    loadingFunction(pathInput.value)
+                } else {
+                    (<any>window).loadFile.openFile(pathInput.value+"\\"+(<any>event).path[1].innerText)
+                }
             })
         })
     })
 }
 
 backwardButton.addEventListener('click', () => {
-    let splittedPath = pathInput.value.split('\\');
+    let splittedPath = pathInput.value.split("\\");
+    console.log(pathInput.value)
     let newPath = '';
     for (let i = 0; i < splittedPath.length - 1; i++) {
         if(i > 0) {
             newPath = newPath+'\\'+splittedPath[i]
         }
     }
+    console.log(newPath)
     loadingFunction(newPath)
 })
 

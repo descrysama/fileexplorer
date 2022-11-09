@@ -5,4 +5,5 @@ import { contextBridge, ipcRenderer } from 'electron'
 
 contextBridge.exposeInMainWorld('loadFile', {
     findFolders: (rootdir : any) => ipcRenderer.invoke('load-files', rootdir),
+    openFile: (path: string) => ipcRenderer.invoke('open-file', path)
 })
