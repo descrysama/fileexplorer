@@ -1,3 +1,4 @@
+
 export const createCards = (data : any) => {
     let ParentElement = document.createElement('div')
     ParentElement.id = "card-content"
@@ -10,7 +11,7 @@ export const createCards = (data : any) => {
         let card = document.createElement('div')
         card.classList.add('card')
         let img = document.createElement('img')
-        img.src = file.type == 'directory' ? "https://badcoffee.club/wp-content/uploads/2020/02/macOS-Default-Folder-Icon-150x150.png" : "https://www.shareicon.net/data/2015/08/11/83725_file_256x256.png"
+        img.src = file.type == 'directory' ? "https://badcoffee.club/wp-content/uploads/2020/02/macOS-Default-Folder-Icon-150x150.png" : "https://i.ibb.co/mvVC80j/whitefile.png"
         if(file.ext && file.ext == '.mp4' || file.ext == '.mov') {
             img.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/VLC_Icon.svg/794px-VLC_Icon.svg.png"
         }
