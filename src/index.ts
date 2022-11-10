@@ -1,7 +1,7 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import fs from 'fs';
 const open = require('open');
-const rootDir = require('path').resolve('/users/tsuki/desktop');
+const rootDir = require('path').resolve('/users/');
 import process from 'process'
 import { fileInstance } from './usableFunction';
 const { session } = require('electron')
@@ -30,9 +30,8 @@ const createWindow = (): void => {
 
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-
+  mainWindow.setMenu(null)
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished

@@ -1,6 +1,27 @@
 body {
-  width: 100vw;
-  height: 100vh;
+  width: 95%;
+  height: 100%;
+  background-color: #202020;
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #383838;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(80, 80, 80);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(80, 80, 80);
 }
 
 .card {
@@ -13,6 +34,7 @@ body {
   margin: 5px;
   border: none;
   padding: 5px;
+  background-color: #202020;
 }
 
 .addFile {
@@ -28,7 +50,7 @@ body {
 }
 
 .addFile:hover {
-  background-color: rgb(204, 219, 204);
+  background-color: #303030;
   cursor: pointer;
 }
 
@@ -36,7 +58,7 @@ body {
 #modalDialog {
   width: 30%;
   height: 200px;
-  background-color: rgb(224, 224, 224);
+  background-color: #303030;
   position: absolute;
   z-index: 100;
   top: 50%;
@@ -49,7 +71,7 @@ body {
 #addFile {
   width: 30%;
   height: 200px;
-  background-color: rgb(224, 224, 224);
+  background-color: #252525;
   position: absolute;
   z-index: 100;
   top: 50%;
@@ -76,7 +98,7 @@ body {
 }
 
 #createFile:hover {
-  background-color: rgb(226, 234, 218);
+  background-color: #303030;
   cursor: pointer;
 }
 
@@ -90,7 +112,7 @@ li {
 }
 
 li:hover {
-  background-color: rgb(237, 237, 237);
+  background-color: #252525;
   cursor: pointer;
 }
 
@@ -98,7 +120,7 @@ li:hover {
   width: 200px;
   height: 120px;
   position: fixed;
-  background-color: rgb(224, 224, 224);
+  background-color: #303030;
 }
 
 .card p {
@@ -108,6 +130,6 @@ li:hover {
 }
 
 .card:hover {
-  background-color: rgb(235, 235, 235);
+  background-color: #252525;
   cursor: pointer;
 }

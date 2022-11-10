@@ -118,6 +118,9 @@ const loadingFunction = (newPath : string | boolean) => {
             document.getElementById('card-content').remove()
         }
         if(data.status) {
+            if(document.getElementById('createFile')){
+                document.getElementById('createFile').remove()
+            }
             let card = document.createElement('div')
             card.id ='createFile'
             let img = document.createElement('img')
