@@ -15,6 +15,24 @@ body {
   padding: 5px;
 }
 
+.addFile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 5px;
+  border: none;
+  padding: 5px;
+}
+
+.addFile:hover {
+  background-color: rgb(204, 219, 204);
+  cursor: pointer;
+}
+
+
 #modalDialog {
   width: 30%;
   height: 200px;
@@ -26,6 +44,61 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+#addFile {
+  width: 30%;
+  height: 200px;
+  background-color: rgb(224, 224, 224);
+  position: absolute;
+  z-index: 100;
+  top: 50%;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#createFile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 5px;
+  border: none;
+  padding: 5px;
+}
+
+#createFile > img {
+  width: 60px;
+  content: url(https://cdn-icons-png.flaticon.com/512/1091/1091916.png)
+}
+
+#createFile:hover {
+  background-color: rgb(226, 234, 218);
+  cursor: pointer;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  margin: 5px;
+  padding: 5px;
+}
+
+li:hover {
+  background-color: rgb(237, 237, 237);
+  cursor: pointer;
+}
+
+#contextMenu {
+  width: 200px;
+  height: 120px;
+  position: fixed;
+  background-color: rgb(224, 224, 224);
 }
 
 .card p {

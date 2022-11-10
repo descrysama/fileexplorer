@@ -90,3 +90,11 @@ ipcMain.handle("open-file", (err, path) => {
 ipcMain.handle("create-folder", (err, path) => {
   fs.mkdirSync(path)
 })
+
+ipcMain.handle("create-file", (err, path) => {
+  fs.writeFileSync(path, '')
+})
+
+ipcMain.handle("delete", (err, path) => {
+  fs.rmSync(path, { recursive: true })
+})
